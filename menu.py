@@ -12,17 +12,14 @@ class Menu():
         with open("Menu.csv","r") as menu:
             reader2 = csv.reader(menu)
             for rows in reader2:
-                temp1 = {}
+                temp = {}
 
                 for index,string in enumerate(rows):
-                    temp1.update({menuclass[index]:string})
-                self.menu_table.append(temp1)
+                    temp.update({menuclass[index]:string})
+                self.menu_table.append(temp)
         return self.menu_table
     
-    def MenuItems(self,menu):
-        for i,l in enumerate(menu):
-            for index,letters in enumerate(menu[i]):
-                pass
+   
                 
 
 
@@ -31,14 +28,22 @@ class Menu():
         with open("DrinksMenu.csv","r") as drinkmenu:
             reader = csv.reader(drinkmenu)
             for row in reader:
-                temp = []
+                temp = {}
+                temp2 = {}
                 for i,l in enumerate(row):
-                    self.drinks_table.append({drinkclass[i]:l})
+                    if drinkclass[i] == "Options" and "/" in l:
+                        a = l.split("/")
+                        temp.update({drinkclass[i]:a})
+
+                    else:
+                        temp.update({drinkclass[i]:l})
+                self.drinks_table.append(temp)
                         
         return self.drinks_table
 
 m = Menu()
-am = m.ReadMenu()
-print(am)
+ma = m.ReadDrinks()
+print(ma)
+
 
 
