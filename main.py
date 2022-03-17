@@ -13,8 +13,9 @@ def myroot():
 def show_menu():
     m = Menu()
     menu = m.ReadMenu()
-    print(menu)
-    return render_template('menu.html', menu=menu, title="Cafe" )
+    a = m.ReadDrinks()
+    print(a)
+    return render_template('menu.html', menu=menu, title="Cafe",drinkmenu = a, nothing = "" )
     #return m.ReadMenu(),m.ReadDrinks()
 
 @app.route('/static/<path:path>')
