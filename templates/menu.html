@@ -12,57 +12,71 @@
 
 
 <div class="container">
+      <div class="row">
+            <div class="col-4">
 <h1>
         {{title}}
 </h1>
+<div class ="col-8">
+      <button onclick="cancelbutton()" type="button" class="btn btn-secondary" > Cancel Order</button>
 </div>
-<div >
+            </div>
+      </div>
+</div>
 <ul>
 {% for l in menu -%}
+<div class="container">
+      <div class="row">
+        <div class="col-4">
 
-<div class="container"> 
-      <div class="container"></div> 
       <list class="menulist">{{ l.Name }} : </list>
+      </div>
+      <div class="col-2">
+      <button onclick="plusbutoon('{{l.Name}}')" type="button" class="btn btn-secondary" >+</button> <button onclick="minusbutton('{{l.Name}}')" type="button" class="btn btn-secondary">-</button><p class="no" id = "{{l.Name}}">0</p>
 </div>
-      <button  type="button" class="btn btn-secondary">+</button> <button  type="button" class="btn btn-secondary">-</button> <p>0</p>
+</div>
 </div>
       <br> 
 
         
 {% endfor -%}
 </ul>
-</div>
 
-
-      <div >
       <ul>
       {% for i in drinkmenu -%}
       
       {%if i.Options != nothing-%}
       {%for l in i.Options%}
-      <div class="container">  
       <div class="container">
+            <div class="row">
+              <div class="col-4">
             <list class="menulist">{{ l }} : </list>
       </div>
-            <button  type="button" class="btn btn-secondary">+</button> <button  type="button" class="btn btn-secondary">-</button> <p>0</p>
-      
+      <div class="col-2">
+            <button onclick="plusbutoon('{{l}}')" type="button" class="btn btn-secondary custombutton">+</button> <button onclick="minusbutton('{{l}}')"  type="button" class="btn btn-secondary custombutton">-</button> <p class="no" id="{{l}}">0</p>
       </div>
+</div>
+</div>
             <br> 
             {%endfor%}
       {%endif%}
-      
-            <div class="container">  
-            <div class="container"></div> 
+      {%else%}
+      <div class="container">
+            <div class="row">
+              <div class="col-4">
             <list class="menulist">{{ i.Name }} : </list>
-            </div>
-            <button  type="button" class="btn btn-secondary">+</button> <button  type="button" class="btn btn-secondary">-</button> <p>0</p>
-            </div>
+      </div>
+      <div class="col-2">
+            <button onclick="plusbutoon('{{i.Name}}')" type="button" class="btn btn-secondary">+</button> <button onclick="minusbutton('{{i.Name}}')" type="button" class="btn btn-secondary">-</button> <p class="no" id="{{i.Name}}">0</p>
+      </div>
+</div>
+</div>
             <br> 
-      
+      {}
               
       {% endfor -%}
       </ul>
-      </div>
+     
       
 
 
