@@ -42,12 +42,12 @@ def orders():
     m.Orderwrite(data,data["Name"])
     return jsonify(data)
 
-@app.route("/orders/name",methods=["POST"])
+@app.route('/orders/name',methods=["POST"])
 def ordersname():
     '''gets the name of the persons geting there order and send the display for them'''
     name = request.get_json()
     print(name)
-    return True
+    return jsonify(name)
 
 if __name__ == "__main__":
     app.run()
