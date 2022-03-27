@@ -1,4 +1,5 @@
 import csv
+import json
 menuclass = ["Name","Description","Options","Dietry","Cost"]
 drinkclass = ["Name","Description","Options","Cost"]
 class Menu():
@@ -13,9 +14,12 @@ class Menu():
             reader2 = csv.reader(menu)
             for rows in reader2:
                 temp = {}
-
                 for index,string in enumerate(rows):
-                    temp.update({menuclass[index]:string})
+                    if "/" in string:
+                        a = string.split("/")
+                        temp.update({menuclass[index]:a})
+                    else:
+                        temp.update({menuclass[index]:string})
                 self.menu_table.append(temp)
         return self.menu_table
     
@@ -40,6 +44,15 @@ class Menu():
                 self.drinks_table.append(temp)
                         
         return self.drinks_table
+
+
+    def Orderwrite(self,dictionary,name):
+        with open(f"orders/{name}.json","w") as f:
+            json.dump(dictionary,f)
+        f.close
+
+
+
 
 m = Menu()
 ma = m.ReadDrinks()
