@@ -10,9 +10,10 @@
 </head>
 <body>
 
-
+<!---->
 <div class="container">
       <div class="row">
+            <div class="col-2"></div>
             <div class="col-4">
 <h1>
         {{title}}
@@ -29,8 +30,10 @@
       <div class="row">
         <div class="col-4">
 
+
       <list class="menulist">{{ l.Name }} : </list>
-      </div>
+
+</div>
       <div class="col-2">
       <button onclick="plusbutoon('{{l.Name}}')" type="button" class="btn btn-secondary" >+</button> <button onclick="minusbutton('{{l.Name}}')" type="button" class="btn btn-secondary">-</button><p class="no" id = "{{l.Name}}">0</p>
 </div>
@@ -44,7 +47,6 @@
 
       <ul>
       {% for i in drinkmenu -%}
-      
       {%if i.Options != nothing-%}
       {%for l in i.Options%}
       <div class="container">
@@ -76,10 +78,18 @@
               
       {% endfor -%}
       </ul>
-     
+      <div class="container">
+            <div class="row">
+                  <div class="col-4 text-center">
+                        <label for="fname">Full Name:</label>
+                        <input class="form-control" type="text" id="Name" name="fname" placeholder="John Smith"><br><br>
+                  </div>
+              <div class="col-4 text-center">   
       
-
-
+      <button onclick="submitbutton()" type="button" class="btn btn-secondary" > Submit</button>
+</div>
+</div>
+</div>
 </body>
 
 </html>
