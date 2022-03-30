@@ -31,17 +31,29 @@
         <div class="col-4">
 
 
-      <list class="menulist">{{ l.Name }} : </list>
+      <list class="menulist" >{{ l.Name }} : </list>
+      <p>{{l.Description}}</p>
+      <list id="menuoptions{{l.Name|lower()| replace(' ','_')}}">
+     
+      {% for a in l.Options -%}
 
+      <!--id="{{a}}lable1"-->
+            <label class ="options" id="{{ a|lower()|replace(' ','_') }}lable">{{a}}</label>
+            <input  class = "options" onclick="checkbox('{{a}}',{{l}})" type="checkbox" id="{{ a|lower()|replace(' ','_') }}input">
+      {%endfor-%}
+      {% for k in l.Cost-%}
+      <label class ="options" id="{{ k|lower()|replace(' ','_') }}lable">{{k}}</label>
+      <input  class = "options" onclick="checkbox('{{k}}',{{l}})" type="checkbox" id="{{ k|lower()|replace(' ','_') }}input">
+      {%endfor-%}
+      </list>
 </div>
       <div class="col-2">
-      <button onclick="plusbutoon('{{l.Name}}')" type="button" class="btn btn-secondary" >+</button> <button onclick="minusbutton('{{l.Name}}')" type="button" class="btn btn-secondary">-</button><p class="no" id = "{{l.Name}}">0</p>
+      
+      <button onclick="plusbutoon('{{l.Name | safe }}',{{l.Options  }},{{l.Cost}})" type="button" class="btn btn-secondary" >+</button> <button onclick="minusbutton('{{l.Name}}',{{l.Options | safe }},{{l.Cost}})" type="button" class="btn btn-secondary">-</button><p class="no" id = "{{l.Name}}">0</p>
 </div>
 </div>
 </div>
       <br> 
-
-        
 {% endfor -%}
 </ul>
 
@@ -53,6 +65,7 @@
             <div class="row">
               <div class="col-4">
             <list class="menulist">{{ l }} : </list>
+            <p>{{i.Description}}</p>
       </div>
       <div class="col-2">
             <button onclick="plusbutoon('{{l}}')" type="button" class="btn btn-secondary custombutton">+</button> <button onclick="minusbutton('{{l}}')"  type="button" class="btn btn-secondary custombutton">-</button> <p class="no" id="{{l}}">0</p>
@@ -67,6 +80,7 @@
             <div class="row">
               <div class="col-4">
             <list class="menulist">{{ i.Name }} : </list>
+            <p>{{i.Description}}</p>
       </div>
       <div class="col-2">
             <button onclick="plusbutoon('{{i.Name}}')" type="button" class="btn btn-secondary">+</button> <button onclick="minusbutton('{{i.Name}}')" type="button" class="btn btn-secondary">-</button> <p class="no" id="{{i.Name}}">0</p>

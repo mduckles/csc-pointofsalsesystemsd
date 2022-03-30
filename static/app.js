@@ -1,40 +1,62 @@
 //var that takes all the data from the menu site 
 var count = {}
+var data = {}
+
+$(document).ready(function(){
+  $(".options").hide()
+});
+
 
 
 function submitbutton(){
   // when submitbutton is pressed sends all data to the back end
-  a = document.getElementById("Name").value
-  count["Name"] = a
-  for(const [key, value] of Object.entries(count)){
-    if(value == 0){
-      delete count[key],count[value]
-    }
-  }
+  a = $("#Name")
+  data["Name"] = a
   $.ajax({
     type:"POST",
-    data: JSON.stringify(count),
+    data: JSON.stringify(data),
     url:"/order",
     contentType: "application/json",
     dataType: "json"
   })
-  console.log(a)
-  console.log(count)
+
 }
 
-function plusbutoon(y){
+lowerunder = function(stin) { 
+    return stin.toLowerCase().replace(" ", "_")
+}
+
+function plusbutoon(name,options,cost_options) { // y = name; x = option names
   // when the plus button is presed ad one to the amout to order that item
-  if(y in count){
-  count[y] += 1
+  if(name in count){
+    count[name] += 1
   }
   else{
-    count[y] = 1
+    count[name] = 1
   }
-  document.getElementById(y).innerHTML = count[y];
-  console.log("hello")
+//  for(i=1;i<= count[name];i++ ){
+ //     data[name+i] = {} // fill empty object for each of the menu items
+ // }
+      
+  document.getElementById(name).innerHTML = count[name]; // make number appear on page
+  lower_name = name.toLowerCase().replaceAll(" ", "_")
+
+  for( i in options){
+      options_lower = options[i].toLowerCase().replaceAll(" ",'_')
+      lable = $("#"+options_lower+"lable").clone().attr('id', options_lower +"lable"+ count[name])
+      input = $("#"+options_lower+"input").clone().attr('id', options_lower +"input"+ count[name])
+
+      console.log("#"+"menuoptions"+lower_name)
+      $("#"+"menuoptions"+lower_name).append(lable)
+      $("#"+"menuoptions"+lower_name).append(input)
+      $("#"+options_lower+"lable"+ count[name]).show()
+      $("#"+options_lower+"input"+ count[name]).show()
+
+    }
+  
 };
 
-function minusbutton(a){
+function minusbutton(a,b,cost_options){
   // when the minus button is presed minus one to the amount of the order 
   
     if(a in count){
@@ -45,9 +67,27 @@ function minusbutton(a){
       else{
         count[a] = 0
       }
-  
+x = count[a] + 1
+delete  data[a+x]; 
     document.getElementById(a).innerHTML = count[a];
 
+
+
+console.log(count)
+    y = count[a] +1
+    console.log(y)
+
+
+
+for(i in b){
+console.log("working")
+j = b[i].toLowerCase().replaceAll(" ",'_')
+ $('#'+j+"input"+y).hide()
+ $('#'+j+"lable"+y).hide()
+}
+for(i in cost_options){
+  cost_lower = cost_options[i].toLowerCase().replaceAll(" ","_")
+} 
 };
 function cancelbutton(){
   // cancels all data and returns all data to zero in count and on the page
@@ -57,9 +97,10 @@ function cancelbutton(){
         document.getElementById(key).innerHTML = 0;
       }
       if(key == "Name"){
-        ducument.getElementById("Name").value ="";
+        document.getElementById("Name").value ="";
       }
   }
+  data = {}
 };
 
 function orderssubmit(){
@@ -73,7 +114,11 @@ function orderssubmit(){
     contentType: "application/json",
     dataType: "json"
   })
-  console.log(x)
+
 
 };
 
+function checkbox(options,name){
+  //lets check boxes do stuff
+  
+}
