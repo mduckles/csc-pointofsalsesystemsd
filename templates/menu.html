@@ -4,12 +4,16 @@
       <link rel="stylrsheet" href="/static/styles.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <script src="/static/app.js"></script>
 </head>
 <body>
-
+      <a href="http://127.0.0.1:5000/">
+            <button class="btn btn-secondary">
+              menu
+            </button>
+          </a>
 <!---->
 <div class="container">
       <div class="row">
@@ -25,85 +29,102 @@
       </div>
 </div>
 <ul>
-{% for l in menu -%}
-<div class="container">
-      <div class="row">
-        <div class="col-4">
+      <form>
 
-
-      <list class="menulist" >{{ l.Name }} : </list>
-      <p>{{l.Description}}</p>
-      <list id="menuoptions{{l.Name|lower()| replace(' ','_')}}">
-     
-      {% for a in l.Options -%}
-
-      <!--id="{{a}}lable1"-->
-            <label class ="options" id="{{ a|lower()|replace(' ','_') }}lable">{{a}}</label>
-            <input  class = "options" onclick="checkbox('{{a}}',{{l}})" type="checkbox" id="{{ a|lower()|replace(' ','_') }}input">
-      {%endfor-%}
-      {% for k in l.Cost-%}
-      <label class ="options" id="{{ k|lower()|replace(' ','_') }}lable">{{k}}</label>
-      <input  class = "options" onclick="checkbox('{{k}}',{{l}})" type="checkbox" id="{{ k|lower()|replace(' ','_') }}input">
-      {%endfor-%}
-      </list>
-</div>
-      <div class="col-2">
+            {% for l in menu -%}
+            <div class="container">
+                  <div class="row">
+                        <div class="col-8">
+                              
+                              
+                              <list class="menulist" >{{ l.Name }} : </list>
+                              <p>{{l.Description}}</p>
+                              <list id="menuoptions{{l.Name|lower()| replace(' ','_')}}">
+                                    
+                                    {% for a in l.Options -%}
+                                    
+                                    <!--id="{{a}}lable1"-->
+                                    <div class="row">
+                                          
+                                          <label class ="options" id="{{ a|lower()|replace(' ','_') }}lable">{{a}}</label>
+                                          <input checked="true" name="{{l.Name}}options" class = "options" onclick="checkbox('{{a}}','{{l.Name}}','options')" type="radio" id="{{ a|lower()|replace(' ','_') }}input">
+                                    </div>
+                                    {%endfor-%}
+                                    
+                                    {% for k in l.Cost-%}
+                                    {%if k !=""-%}
+                                    <div class="row">
+                                          
+                                          <label class ="cost_options" id="{{ l.Name|lower()|replace(' ','_')|replace('$','')|replace('.','')}}{{ k|lower()|replace(' ','_')|replace('$','')|replace('.','') }}lable">{{k}}</label>
+                                          <input checked="true" name="{{l.Name}}cost" class = "cost_options" onclick="checkbox('{{k}}','{{l.Name}}','cost')" type="radio" id="{{ l.Name|lower()|replace(' ','_')|replace('$','')|replace('.','')  }}{{ k|lower()|replace(' ','_')|replace('$','')|replace('.','') }}input">
+                                    </div>
+                                    {%endif%}
+                                    {%endfor-%}
+                                    
+                                    
+                              </list>
+                        </div>
+                        <div class="col-2">
+                              <button onclick="plusbutoon('{{l.Name | safe }}',{{l.Options}},{{l.Cost|safe}})" type="button" class="btn btn-secondary" >+</button> <button onclick="minusbutton('{{l.Name}}',{{l.Options  }},{{l.Cost|safe}})" type="button" class="btn btn-secondary">-</button><p class="no" id = "{{l.Name}}">0</p>
+                              
+                        </div>
+                  </div>
+            </div>
+            <br> 
+            {% endfor -%}
+      </ul>
       
-      <button onclick="plusbutoon('{{l.Name | safe }}',{{l.Options  }},{{l.Cost}})" type="button" class="btn btn-secondary" >+</button> <button onclick="minusbutton('{{l.Name}}',{{l.Options | safe }},{{l.Cost}})" type="button" class="btn btn-secondary">-</button><p class="no" id = "{{l.Name}}">0</p>
-</div>
-</div>
-</div>
-      <br> 
-{% endfor -%}
-</ul>
-
       <ul>
-      {% for i in drinkmenu -%}
-      {%if i.Options != nothing-%}
-      {%for l in i.Options%}
-      <div class="container">
-            <div class="row">
-              <div class="col-4">
-            <list class="menulist">{{ l }} : </list>
-            <p>{{i.Description}}</p>
-      </div>
-      <div class="col-2">
-            <button onclick="plusbutoon('{{l}}')" type="button" class="btn btn-secondary custombutton">+</button> <button onclick="minusbutton('{{l}}')"  type="button" class="btn btn-secondary custombutton">-</button> <p class="no" id="{{l}}">0</p>
-      </div>
-</div>
-</div>
+            {% for i in drinkmenu -%}
+            {%if i.Options != nothing-%}
+            {%for l in i.Options%}
+            <div class="container">
+                  <div class="row">
+                        <div class="col-4">
+                              <list class="menulist">{{ l }} : </list>
+                              <p>{{i.Description}}</p>
+                        </div>
+                        <div class="col-2">
+                              <button onclick="plusbutoon('{{l}}')" type="button" class="btn btn-secondary custombutton">+</button> <button onclick="minusbutton('{{l}}')"  type="button" class="btn btn-secondary custombutton">-</button> <p class="no" id="{{l}}">0</p>
+                        </div>
+                  </div>
+            </div>
             <br> 
             {%endfor%}
-      {%endif%}
-      {%else%}
-      <div class="container">
-            <div class="row">
-              <div class="col-4">
-            <list class="menulist">{{ i.Name }} : </list>
-            <p>{{i.Description}}</p>
-      </div>
-      <div class="col-2">
-            <button onclick="plusbutoon('{{i.Name}}')" type="button" class="btn btn-secondary">+</button> <button onclick="minusbutton('{{i.Name}}')" type="button" class="btn btn-secondary">-</button> <p class="no" id="{{i.Name}}">0</p>
-      </div>
-</div>
-</div>
-            <br> 
-      {}
-              
-      {% endfor -%}
-      </ul>
-      <div class="container">
-            <div class="row">
-                  <div class="col-4 text-center">
-                        <label for="fname">Full Name:</label>
-                        <input class="form-control" type="text" id="Name" name="fname" placeholder="John Smith"><br><br>
+            {%endif%}
+            {%else%}
+            <div class="container">
+                  <div class="row">
+                        <div class="col-4">
+                              <list class="menulist">{{ i.Name }} : </list>
+                              <p>{{i.Description}}</p>
+                        </div>
+                        <div class="col-2">
+                              <button onclick="plusbutoon('{{i.Name}}')" type="button" class="btn btn-secondary">+</button> <button onclick="minusbutton('{{i.Name}}')" type="button" class="btn btn-secondary">-</button> <p class="no" id="{{i.Name}}">0</p>
+                        </div>
                   </div>
-              <div class="col-4 text-center">   
-      
-      <button onclick="submitbutton()" type="button" class="btn btn-secondary" > Submit</button>
-</div>
-</div>
-</div>
+            </div>
+            <br> 
+            {}
+            
+            {% endfor -%}
+      </ul>
+      <form>
+
+            <div class="container">
+                  <div class="row">
+                        <div class="col-4 text-center">
+                              <label for="fname">Full Name:</label>
+                              <input class="form-control" type="text" id="orderName" name="fname" placeholder="John Smith" required><br><br>
+                        </div>
+                        <div class="col-4 text-center">   
+                              
+                              <button onclick="submitbutton()" type="submit" class="btn btn-secondary" required> Submit</button>
+                        </form>
+                  </div>
+            </div>
+      </div>
+</form>
 </body>
 
 </html>
