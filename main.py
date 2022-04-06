@@ -5,9 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def myroot():
-    #m = Menu()
-    #return m.ReadMenu(),m.ReadDrinks()
-    return " hello"
+    return render_template('main.html')
 # sets up the page /menu/
 @app.route('/menu/')
 def show_menu():
@@ -35,19 +33,28 @@ def orderspage():
 @app.route('/order',methods=['POST'])
 def orders():
     '''recives the data inputed to the menu page'''
+    # gets the order data from the front end
     data = request.get_json()
-    data["Name"] = data["Name"].lower()
-    data["Name"] = data["Name"].replace(" ","")
+    # instalizes Menu
     m = Menu()
-    m.Orderwrite(data,data["Name"])
-    return jsonify(data)
+    # writes the data to a json
+    m.Orderwrite(data,data["ordername"])
+    # returns the recit data
+    return m.getorders(data['ordername']) 
 
 @app.route('/orders/name',methods=["POST"])
 def ordersname():
     '''gets the name of the persons geting there order and send the display for them'''
     name = request.get_json()
-    print(name)
-    return jsonify(name)
+    m = Menu()
+    print(m.getorders(name['Name']))
+    return m.getorders(name['Name'])
+
+@app.route('/kitchen/')
+def kitchen():
+    '''run kitchen.html'''
+    return render_template('kitchen.html')
 
 if __name__ == "__main__":
+    app.debug = True
     app.run()
