@@ -1,5 +1,7 @@
+import json
 from menu import Menu
 from flask import Flask, render_template, send_from_directory, request, jsonify
+import os
 # instalizes flask
 app = Flask(__name__)
 
@@ -53,7 +55,18 @@ def ordersname():
 @app.route('/kitchen/')
 def kitchen():
     '''run kitchen.html'''
-    return render_template('kitchen.html')
+    output = []
+    for file in os.listdir('/Users/micah/Documents/GitHub/csc-pointofsalsesystems/orders'):
+        if file.endswith('.json'):
+            file_split = file.split('.')
+            file_name = file_split[0]
+            m = Menu()
+            output.append(m.getorders(file_name))
+    return render_template('kitchen.html',orders = output)
+
+@app.route('/admin/')
+def admin():
+    return render_template('admin.htmld')
 
 if __name__ == "__main__":
     app.debug = True

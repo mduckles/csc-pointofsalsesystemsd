@@ -1,4 +1,5 @@
 import csv
+from itertools import count
 import json
 from flask import jsonify
 import re
@@ -98,26 +99,47 @@ class Menu():
                 else:
                     options = dictionary[index]['Options']
                 if dictionary[index]['Cost'] == '':
-                    # if there is no cost from the front end assign in here
+                    # if there is no cost from the data geting it
                     for i,l in enumerate(drinkmenu):
                         if drinkmenu[i]['Name'] == replacenum(index,'') or replacenum(index,'') in drinkmenu[i]['Options']:
                             dictionary[index]['Cost'] = drinkmenu[i]['Cost'] 
                             cost = dictionary[index]['Cost']
                             break
+                    for indexs,letter in enumerate(menu): 
+                        if menu[indexs]['Name'] == replacenum(index,''):
+                            break
                 else:
-                    cost = dictionary[index]['Cost']
-                    # makes each list of the recit 
+                    cost = dictionary[index]['Cost'].replace('_',' ')
                 row = f"Name: {replacenum(index,'')} | Options: {options} | :{cost}"
-                # makes cost not have $ so it can be used for math
-                cost = re.sub('[^\d]', '', cost)
-                # had to divide by 100 becase could not int an number like 25.50 with a .
-                total += int(cost)/100
-                # puts the name at the top of the list
+                # gets rid of char that are not numbers like $ and .
+                cost = re.sub('[^\d\.]', '', cost)
+                # gets total cost
+                print(cost)
+                total += int(cost.replace('.',''))/100 
             if index == 'ordername':
                 output1.insert(0,row)
             else:
                 output1.append(row)
         output1.append('total: $'+str(total))
         print(jsonify(output1))
-        # returns it to the front end it is jsonify so flast can send it to the javascript in the front end
+        # outputs a jsonify string
         return jsonify(output1)
+                
+            
+
+
+
+
+
+
+
+
+
+
+m = Menu()
+ma = m.ReadDrinks()
+b = m.ReadMenu()
+
+
+
+
