@@ -21,7 +21,11 @@
       </div>
     <div class="row">
         <div class="col-12" id="cooks">
-
+            {% for i in orders %}
+                {% for l in orders.i %}
+                    <p>{{orders.i.l}}</p>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 
