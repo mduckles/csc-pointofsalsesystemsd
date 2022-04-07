@@ -44,7 +44,7 @@ function lowerunder(stin) {
   // lowercases any string data and replaces space with _
     return stin.toLowerCase().replace(" ", "_")
 }
-function plusbutoon(name,options="",cost_options) { // y = name; x = option names
+function plusbutoon(name,options,cost_options) { // y = name; x = option names
   // when the plus button is presed ad one to the amout to order that item
   if(name in count){
     count[name] += 1
@@ -70,7 +70,7 @@ function plusbutoon(name,options="",cost_options) { // y = name; x = option name
       options_lower = options[i].toLowerCase().replaceAll(" ","_")
       // clones the options when 
       lable = $("#"+options_lower+"lable").clone().attr('id', options_lower +"lable"+ count[name])
-      input = $("#"+options_lower+"input").clone().attr('id', options_lower +"input"+ count[name]).attr('name',lower_name+'options'+count[name]).prop('required',true);
+      input = $("#"+options_lower+"input").clone().attr('id', options_lower +"input"+ count[name]).attr('name',lower_name+'options'+count[name])
 
       console.log("#"+"menuoptions"+lower_name)
       // append to the thing they are options of
@@ -78,6 +78,8 @@ function plusbutoon(name,options="",cost_options) { // y = name; x = option name
       $("#"+"menuoptions"+lower_name).append(input)
       $("#"+options_lower+"lable"+ count[name]).show()
       $("#"+options_lower+"input"+ count[name]).show().prop('checked',true)
+      checkbox(options[i],name)
+
     }
     for(i in cost_options){
       // cones and appends to what ever the meal is the cost options
@@ -86,9 +88,10 @@ function plusbutoon(name,options="",cost_options) { // y = name; x = option name
       lable_cost = $("#"+lower_name+cost_lower+"lable").clone().attr('id',lower_name+cost_lower+"lable"+ count[name])
       $("#"+"menuoptions"+lower_name).append(lable_cost)
       $("#"+lower_name+cost_lower+"lable"+ count[name]).show()
-      input_cost = $("#"+lower_name+cost_lower+"input").clone().attr('id',lower_name+cost_lower+"input"+ count[name]).attr('name',lower_name+'cost'+count[name]).prop('required',true);
+      input_cost = $("#"+lower_name+cost_lower+"input").clone().attr('id',lower_name+cost_lower+"input"+ count[name]).attr('name',lower_name+'cost'+count[name])
       $("#"+"menuoptions"+lower_name).append(input_cost)
       $("#"+lower_name+cost_lower+"input"+ count[name]).show()
+      checkbox(cost_options[i],name)
     }
     console.log(data)
 };
@@ -162,7 +165,7 @@ function orderssubmit(){
   })
 };
 
-function checkbox(options,name,type){
+function checkbox(options,name){
   //lets check boxes do stuff
   options_lower = options.toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
   name_lower = name.toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
