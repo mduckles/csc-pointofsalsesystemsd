@@ -30,7 +30,6 @@
 </div>
 <ul>
       <form>
-
             {% for l in menu -%}
             <div class="container">
                   <div class="row">
@@ -42,8 +41,6 @@
                               <list id="menuoptions{{l.Name|lower()| replace(' ','_')}}">
                                     
                                     {% for a in l.Options -%}
-                                    
-                                    <!--id="{{a}}lable1"-->
                                     <div class="row">
                                           
                                           <label class ="options" id="{{ a|lower()|replace(' ','_') }}lable">{{a}}</label>
@@ -114,7 +111,7 @@
             <div class="container">
                   <div class="row">
                         <div class="col-4 text-center">
-                              <label for="fname">Full Name:</label>
+                              <label for="fname">Full Name or order code:</label>
                               <input class="form-control" type="text" id="orderName" name="fname" placeholder="John Smith" required><br><br>
                         </div>
                         <div class="col-4 text-center">   
