@@ -161,6 +161,9 @@ function orderssubmit(){
     dataType: "json",
     success: function(datas){
       prosessdata(datas)
+    },
+    error: function(){
+      alert('you entered a invalid name')
     }
   })
 };
