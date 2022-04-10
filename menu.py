@@ -91,7 +91,7 @@ class Menu():
         for index in dictionary:
             # gets the name of the order
             if index == 'ordername':
-                row = f"order name: {dictionary[index]}"
+                row = f"order name or code: {dictionary[index]}"
             else:
                 # sets options to None if there are no options
                 if dictionary[index]['Options'] == '':
