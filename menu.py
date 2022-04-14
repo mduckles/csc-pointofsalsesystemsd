@@ -121,7 +121,7 @@ class Menu():
                 output1.insert(0,row)
             else:
                 output1.append(row)
-        output1.append('total: $'+str(total))
+        output1.append('total: $'+str(round(total,0)))
         print(jsonify(output1))
         # outputs a jsonify string
         return jsonify(output1)

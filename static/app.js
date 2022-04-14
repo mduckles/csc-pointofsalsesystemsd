@@ -67,8 +67,8 @@ function plusbutoon(name,options,cost_options) { // y = name; x = option names
   document.getElementById(name).innerHTML = count[name]; // make number appear on page
   lower_name = name.toLowerCase().replaceAll(" ", "_")
   // runs through each options
-  for( i in options){
-      options_lower = options[i].toLowerCase().replaceAll(" ","_")
+  for( option in options){
+      options_lower = options[option].toLowerCase().replaceAll(" ","_")
       // clones the options when 
       lable = $("#"+options_lower+"lable").clone().attr('id', options_lower +"lable"+ count[name])
       input = $("#"+options_lower+"input").clone().attr('id', options_lower +"input"+ count[name]).attr('name',lower_name+'options'+count[name])
@@ -79,12 +79,12 @@ function plusbutoon(name,options,cost_options) { // y = name; x = option names
       $("#"+"menuoptions"+lower_name).append(input)
       $("#"+options_lower+"lable"+ count[name]).show()
       $("#"+options_lower+"input"+ count[name]).show().prop('checked',true)
-      checkbox(options[i],name)
+      checkbox(options[option],name)
 
     }
-    for(i in cost_options){
+    for(cost_option in cost_options){
       // cones and appends to what ever the meal is the cost options
-      cost_lower = cost_options[i].toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
+      cost_lower = cost_options[cost_option].toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
       console.log("#"+lower_name+cost_lower+"lable")
       lable_cost = $("#"+lower_name+cost_lower+"lable").clone().attr('id',lower_name+cost_lower+"lable"+ count[name])
       $("#"+"menuoptions"+lower_name).append(lable_cost)
@@ -92,37 +92,37 @@ function plusbutoon(name,options,cost_options) { // y = name; x = option names
       input_cost = $("#"+lower_name+cost_lower+"input").clone().attr('id',lower_name+cost_lower+"input"+ count[name]).attr('name',lower_name+'cost'+count[name])
       $("#"+"menuoptions"+lower_name).append(input_cost)
       $("#"+lower_name+cost_lower+"input"+ count[name]).show()
-      checkbox(cost_options[i],name)
+      checkbox(cost_options[cost_option],name)
     }
     console.log(data)
 };
 
-function minusbutton(a,b="",cost_options){
+function minusbutton(name,options,cost_options){
   // when the minus button is presed minus one to the amount of the order 
-    if(a in count){
-      if(count[a] >= 1){
-        count[a] -= 1
+    if(name in count){
+      if(count[name] >= 1){
+        count[name] -= 1
       }
       }
       else{
-        count[a] = 0
+        count[name] = 0
       }
-x = count[a] + 1
-delete  data[a+x]; 
-    document.getElementById(a).innerHTML = count[a];
-    y = count[a] +1
+x = count[name] + 1
+delete  data[name+x]; 
+    document.getElementById(name).innerHTML = count[name];
+    y = count[name] +1
     // hides the options when the minus button is press
-for(i in b){
-j = b[i].toLowerCase().replaceAll(" ",'_')
+for(i in options){
+j = options[options].toLowerCase().replaceAll(" ",'_')
  $('#'+j+"input"+y).hide()
  $('#'+j+"lable"+y).hide()
 }
 // hides the cost options when button presed 
 for(i in cost_options){
-  a_lower = a.toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
+  name_lower = name.toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
   cost_lower = cost_options[i].toLowerCase().replaceAll(" ","_").replaceAll("$","").replaceAll(".","")
-  $("#"+a_lower+cost_lower+"lable"+y).hide()
-  $("#"+a_lower+cost_lower+"input"+y).hide()
+  $("#"+name_lower+cost_lower+"lable"+y).hide()
+  $("#"+name_lower+cost_lower+"input"+y).hide()
 } 
 
   console.log(data)
