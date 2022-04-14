@@ -1,5 +1,4 @@
 import csv
-from itertools import count
 import json
 from flask import jsonify
 import re
@@ -17,10 +16,12 @@ def replacenum(string,K):
 
 class Menu():
         
+
     def __init__(self):
         '''runs when menu is called asigns to two list to be appended to'''
         self.drinks_table = []
         self.menu_table = []
+
 
     def ReadMenu(self): # return a list of dictionaries
         '''reads the menu(csv file) than save to a dictionary'''
@@ -124,22 +125,3 @@ class Menu():
         print(jsonify(output1))
         # outputs a jsonify string
         return jsonify(output1)
-                
-            
-
-
-
-
-
-
-
-
-
-
-m = Menu()
-ma = m.ReadDrinks()
-b = m.ReadMenu()
-
-
-
-

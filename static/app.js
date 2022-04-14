@@ -24,8 +24,9 @@ function prosessdata2(datas){
 function submitbutton(){
   // gets the data of order name
   a = document.getElementById("orderName").value
+  clean_input = a.replace(/[^a-zA-Z ]/g, "");
   // gives data the order name
-  data["ordername"] = a
+  data["ordername"] = clean_input
   $("input[type=radio]").prop('checked', false);
   // post to /order in the back end
   $.ajax({
@@ -128,7 +129,10 @@ for(i in cost_options){
 };
 function cancelbutton(){
   // cancels all data and returns all data to zero in count and on the page
+  $(".options").hide()
+  $(".cost_options").hide()
     for(const [key, value] of Object.entries(count)){
+      //loops through the counts and reasets them
       if(value >= 1){
         count[key] = 0
         document.getElementById(key).innerHTML = 0;
@@ -139,19 +143,23 @@ function cancelbutton(){
   }
   data = {}
   $("input[type=radio]").prop('checked', false);
+  location.reload();
 };
 
 function prosessdata(datas){
   
   for (i in datas){
-$("#reciet").append('<p>'+datas[i]+'</p>');
-  }
+    $("#reciet").append('<p>'+datas[i]+'</p>');
+  } 
 }
 
 function orderssubmit(){
   // when the submit button is presed on the /orders page give name to the flask 
   x = {}
-  x["Name"] = document.getElementById("OrderName").value;
+  a = document.getElementById("OrderName").value;
+  clean_inputs = a.replace(/[^a-zA-Z ]/g, "")
+  x["Name"] = clean_inputs
+  
   // post to /orders/name
   $.ajax({
     type:"POST",
@@ -175,6 +183,7 @@ function checkbox(options,name){
 
     if($("#"+name_lower+options_lower+"input"+count[name]).is(':checked') === true){
       for(i=1;i<= count[name];i++ ){
+        // check each box
         data[name+i]['Cost'] = options;
         console.log(data)
       }
@@ -183,6 +192,7 @@ function checkbox(options,name){
   if($("#"+options_lower+"input"+count[name]).is(':checked') === true){
     console.log("isworking")
     for(i=1;i<= count[name];i++ ){
+        //loops through data 
         data[name+i]['Options'] = options;
         console.log(data)
     }
